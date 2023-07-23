@@ -1,0 +1,3 @@
+SECRET_KEY="CreatedByDhruv"
+JWT_SECRET="CreatedByDhruv"
+backendUrl="http://localhost:4000/"
