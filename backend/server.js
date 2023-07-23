@@ -37,12 +37,12 @@ app.use(cors({
     credentials: true
 }));
 app.use(session({
-    secret: "Iamsecret",
+    secret: process.env.SECRET_KEY,
     resave: true,
     saveUninitialized: true
 }));
 
-app.use(cookiesParser("Iamsecret"));
+app.use(cookiesParser(process.env.SECRET_KEY));
 app.use(passport.initialize());
 app.use(passport.session());
 require("./passportConfig")(passport);
