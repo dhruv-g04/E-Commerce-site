@@ -2,9 +2,9 @@ import React from "react";
 import { BiCopyright } from "react-icons/bi";
 import { TfiTwitter } from "react-icons/tfi";
 import { AiOutlineYoutube } from "react-icons/ai";
-import { BsGlobe, BsInstagram,BsFacebook, BsFillTelephoneFill} from "react-icons/bs";
-import {GrMapLocation} from "react-icons/gr";
-import {MdEmail} from "react-icons/md";
+import { BsGlobe, BsInstagram, BsFacebook, BsFillTelephoneFill } from "react-icons/bs";
+import { GrMapLocation } from "react-icons/gr";
+import { MdEmail } from "react-icons/md";
 function Footer() {
     const year = new Date().getFullYear();
     return (
@@ -12,9 +12,9 @@ function Footer() {
             <div id="contact">
                 <div className="section-p1">
                     <h4>Contact Us</h4>
-                    <p><strong><GrMapLocation/> </strong> 117, Cecil Clementi St, Model Town, Sarvodaya Nagar, Kanpur, Uttar Pradesh 208005</p>
-                    <p><strong><BsFillTelephoneFill/> </strong> +91 XXXXXXXXXX</p>
-                    <p><strong><MdEmail/> </strong>example@knp.jagran.in</p>
+                    <p><strong><GrMapLocation /> </strong> 117, Cecil Clementi St, Model Town, Sarvodaya Nagar, Kanpur, Uttar Pradesh 208005</p>
+                    <p><strong><BsFillTelephoneFill /> </strong> +91 XXXXXXXXXX</p>
+                    <p><strong><MdEmail /> </strong>example@knp.jagran.in</p>
                 </div>
                 <div className="section-p1 follow">
                     <h4>Follow Us</h4>
@@ -27,7 +27,12 @@ function Footer() {
                     </div>
                 </div>
             </div>
-            <h3 className="section-p1"><BiCopyright /> {year} Dainik Jagran</h3>
+            <div id="copyright">
+                <span className="type"><BiCopyright /> {year} Dainik Jagran</span>
+            </div>
+            {/* <div id="copyright">
+                <span className="section-p1 type"><BiCopyright /> {year} Dainik Jagran</span>
+            </div> */}
         </section>
     )
 }

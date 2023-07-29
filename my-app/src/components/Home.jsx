@@ -9,11 +9,9 @@ import Feature from "./Feature";
 function Home() {  
     const [products, setProducts] = useState([]);
     useEffect(() => {
-        axios.get('http://localhost:4000/api/products')
+        axios.get(process.env.REACT_APP_BACKEND_URL + "api/recentproducts")
             .then((response) => {
                 setProducts(response.data);
-                console.log("productshome");
-                console.log(response.data);
             }).catch((error) => {
                 console.error('Error fetching data:', error);
             });

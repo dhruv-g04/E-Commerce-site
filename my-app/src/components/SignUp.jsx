@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 function Signup() {
+    const navigate = useNavigate();
     const [signupText, setSignupText] = useState({
         name: "",
         username: "",
@@ -15,40 +17,46 @@ function Signup() {
             };
         });
     }
-    const register = (event) => {
+    const register = async (event) => {
         event.preventDefault();
-        axios({
-            method: "post",
-            data: {
-                username: signupText.username,
-                name: signupText.name,
-                password: signupText.password
-            },
-            withCredentials: true,
-            url: "http://localhost:4000/register"
-        }).then((res) => {
-            if (res.data.message === "User created successfully") {
-                window.location = "/"; // Redirect to a new page after successful authentication
-                alert("Register Successfull")
+        try {
+            const config = {
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                withCredentials: true,
+            };
+            const { data } = await axios.post(
+                "http://localhost:4000/api/signup", signupText, config
+            );
+            // console.log(data);
+            window.alert(data.message);
+            if (data.message === "Registration successful") {
+                localStorage.setItem("userInfo", JSON.stringify(data));
+                navigate("/");
             }
-            else if (res.data.message === "User already exists") {
-                alert("User already exists")
+        } catch (error) {
+            if (error.response) {
+                const statusCode = error.response.status;
+                // console.log("Error status code:", statusCode);
+                if (statusCode === 409) {
+                    window.alert("User already exists.");
+                } else{
+                    window.alert("Error message");
+                    console.log("Error message:", error);
+                } 
+            } else {
+                window.alert("Error Occurred");
+                console.log("Error message:", error);
             }
-            else {
-                alert("Internal Server Error");
-            }
-            // console.log(res)
-            // window.location = "/";
-            // alert("Register Successfull")
-        }).catch((error) => {
-            alert("Internal Server Error");
-            console.error("Error during registration:", error);
-        });
+            
+        }
+        
     };
     return (
         <div>
             <div className="container">
-                <img src="/images/login.png" alt="Sign Up" />
+                <img src="/images/login.jpg" alt="Sign Up" />
                 <div className="sub-container">
                     <h2>
                         Sign Up

@@ -1,6 +1,8 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 function Login() {
+    const navigate = useNavigate();
     const [loginText, setLoginText] = React.useState({
         username: "",
         password: ""
@@ -15,34 +17,38 @@ function Login() {
             };
         });
     }
-    const login = (event) => {
+    // \\\\\\\\\\\\\\\\\/
+    const clickLogin = async (event) => {
         event.preventDefault();
-        axios({
-            method: "post",
-            data: {
-                username: loginText.username,
-                password: loginText.password
-            },
-            withCredentials: true,
-            url: "http://localhost:4000/login"
-        }).then((res) => {
-            if (res.data.message === "Successfully Authenticated") {
-                window.location = "/"; // Redirect to a new page after successful authentication
-                alert("Login Successfully")
+        try {
+            const config = {
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                withCredentials: true,
+            };
+            const { data } = await axios.post(
+                "http://localhost:4000/api/login",
+                loginText,
+                config
+            );
+            if (data.error) {
+                window.alert(data.error);
+            } else {
+                localStorage.setItem("userInfo", JSON.stringify(data));
+                window.alert("Login successful");
+                navigate("/");
             }
-            else if (res.data.message === "No User exists") {
-                alert("No User exist")
+        } catch (error) {
+            const statusCode = error.response.status;
+            if (statusCode === 401) {
+                window.alert("Invalid Username or Password");
             }
-             else {
-                alert("Wrong User id or Password");
+            else {
+                alert("Error occurred");
+                console.log(error);
             }
-            // window.location = "/";
-            // alert(res.data.message)
-            // console.log("hi");
-        }).catch((error) => {
-            alert("Error occur")
-            console.error("Error during login:", error);
-        });
+        }
     };
     return (
         <div>
@@ -67,7 +73,7 @@ function Login() {
                             value={loginText.password}
                             placeholder="Password"
                         />
-                        <button onClick={login} className="normal">Login</button>
+                        <button onClick={clickLogin} className="normal">Login</button>
                     </form>
                     <p>Not a member? <a href="/signup">Sign Up</a> Now</p>
                 </div>

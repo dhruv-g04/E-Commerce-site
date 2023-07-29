@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate} from 'react-router-dom';
 import Header from "./Header";
 import Footer from "./Footer";
-import Table from "./WishListTable";
-function WishList() {
+// import Grid from "./Grid";
+import SellTable from "./SellListTable";
+function CustomerDetails() {
     const navigate = useNavigate();
     const [user, setUser] = useState({
         _id: "",
@@ -42,12 +43,25 @@ function WishList() {
         callAboutUser();
     }, []);
     return (
-        <div>
-            <Header />
-            <Table heading="WishList" list={user.wishList}/>
+        (<div id="box">
+            < Header />
+            <section className="section-p1">
+                <div class="info-box">
+                    <h2 className="info-heading">Personal Information</h2>
+
+                    <div class="text-start personalInfo">
+                        <h4> <strong>Name: </strong> {user.name} </h4>
+                        <h4> <strong>User Name: </strong>  {user.username}</h4>
+
+                    </div>
+                </div>
+            </section>
+
+            {/* {user.wishList.length ? <Grid heading="Your WishList" prodList={user.wishList} /> : null} */}
+
+            <SellTable heading="Your Ads" list={user.sellList} />
             <Footer />
-        </div>
+        </div>)
     )
 }
-
-export default WishList;
+export default CustomerDetails;

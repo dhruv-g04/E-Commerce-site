@@ -7,7 +7,7 @@ import Login from './Login';
 import SignUp from './SignUp';
 import WishList from './WishList';
 import ProductDetail from './ProductDetail';
-import CustomerDetails from './CustomerDetails';
+import CustomerDetails from './AboutUser';
 function App() {
     useEffect(() => {
         document.title = "Jagran Hub"
@@ -21,8 +21,10 @@ function App() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<SignUp />} />
                 <Route exact path="/wishlist" element={<WishList />} />
-                <Route exact path="/mydetails" element={<CustomerDetails/>} />
-                <Route exact path="/product" element={<ProductDetail/>} />
+                <Route exact path="/aboutuser" element={<CustomerDetails/>} />
+                {/* <PrivateRoute path="/aboutuser" component={CustomerDetails} /> */}
+                <Route exact path="/productlanding/:productId" element={<ProductDetail/>} />
+                {/* <Route exact path="/productlanding/:productId" element={<ProductLanding/>} /> */}
             </Routes>
 
         </BrowserRouter>

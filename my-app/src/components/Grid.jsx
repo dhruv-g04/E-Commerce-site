@@ -4,18 +4,18 @@ import Card from "./Card";
 function Grid(props) {
     function makeCard(product) {
         return (
-            <Card key={product._id} img={product.imageFilePath} catagory={product.category} brand={product.model} price={product.price} />
+            <Card key={product._id} product={product} />
         )
     }
     const products=props.prodList;
-    console.log(props);
+    // console.log(props);
     return (
         <section id="products" className="section-p1">
             <div className="proHead">
                 <h2>{props.heading}</h2>
             </div>
             <div className="grid">
-                {products.map(makeCard)};
+                {products.map(makeCard)}
             </div>
         </section>
     )
